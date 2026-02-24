@@ -1,9 +1,10 @@
 require "test_helper"
 
 class HelloControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
+  test "should get index and return hello message" do
     get hello_url
     assert_response :success
-    assert_select "h1", "Hello"
+    json_response = JSON.parse(@response.body)
+    assert_equal "Hello", json_response["message"]
   end
 end
